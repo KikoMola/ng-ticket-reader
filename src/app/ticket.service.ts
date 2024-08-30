@@ -13,68 +13,82 @@ export class PdfParserService {
   async parsePdfConsum(pdfBuffer: ArrayBuffer): Promise<any[]> {
     const loadingTask = pdfjsLib.getDocument({ data: pdfBuffer });
     const pdf = await loadingTask.promise;
-    let allItems: any[] = [];
-    let items: any[] = [];
-    let capturing = false;
+    let capturedText = '';
 
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
       const page = await pdf.getPage(pageNum);
       const textContent = await page.getTextContent();
+      let pageText = '';
 
-      textContent.items.forEach((item: any) => {
-        if ('str' in item) {
-          const text = item.str.trim();
-          if (text === '----------------------------------------') {
-            capturing = !capturing;
-            if (!capturing) {
-              allItems.push(...this.processTextConsum(items));
-              items = [];
-            }
-          } else if (capturing && text && !text.includes('DNI Socio-Cliente')) {
-            items.push(text);
-          }
+      for (const item of textContent.items) {
+        if ('str' in item && item.str.trim() !== '') {
+          pageText += item.str.trim() + ' ';
         }
-      });
+      }
+
+      const start = pageText.indexOf('----------------------------------------') + '----------------------------------------'.length + 1;
+      const end = pageText.indexOf('Socio-Cliente', start);
+      if (start !== -1 && end !== -1) {
+        capturedText += pageText.substring(start, end).trim() + ' ';
+      } else {
+        console.log(`No se encontraron los delimitadores en la página ${pageNum}`);
+      }
     }
-    return allItems;
+
+    if (capturedText.trim()) {
+      return this.processTextConsum(capturedText.trim());
+    } else {
+      console.log("No se encontró texto relevante entre los delimitadores.");
+      return [];
+    }
   }
 
-  private processTextConsum(textItems: string[]): any[] {
-    let results = [];
+  private processTextConsum(capturedText: string): any[] {
+    const lines = capturedText.split(/\s+/);
+    const products = [];
     let i = 0;
-    while (i < textItems.length) {
-      let producto = '';
-      let cantidad = '';
-      let precio = '';
 
-      while (
-        i < textItems.length &&
-        isNaN(Number(textItems[i].replace(',', '.')))
-      ) {
-        producto += (producto ? ' ' : '') + textItems[i];
+    while (i < lines.length) {
+      const cantidad = parseFloat(lines[i].trim());
+      let nombre = '';
+      let precioUnitario = 0;
+      let precioTotal = 0;
+      let sc = '0';
+
+      i++;
+      while (i < lines.length && !/^\d+,\d{2}$/.test(lines[i])) {
+        nombre += lines[i] + ' ';
+        i++;
+      }
+      nombre = nombre.trim();
+
+      if (i < lines.length && /^\d+,\d{2}$/.test(lines[i])) {
+        precioTotal = parseFloat(lines[i].replace(',', '.'));
         i++;
       }
 
-      if (
-        i < textItems.length &&
-        !isNaN(Number(textItems[i].replace(',', '.')))
-      ) {
-        precio = textItems[i];
-        i++;
-      }
-      if (
-        i < textItems.length &&
-        !isNaN(Number(textItems[i].replace(',', '.')))
-      ) {
-        cantidad = textItems[i];
+      if (cantidad === 1) {
+        precioUnitario = precioTotal;
+      } else if (i < lines.length && /^\d+,\d{2}$/.test(lines[i])) {
+        precioUnitario = parseFloat(lines[i].replace(',', '.'));
         i++;
       }
 
-      if (producto && cantidad && precio) {
-        results.push({ producto, cantidad, precio });
+      if (i < lines.length && /^\d+,\d{2}$/.test(lines[i])) {
+        sc = lines[i];
+        i++;
       }
+
+      const product = {
+        cantidad,
+        nombre,
+        precioUnitario,
+        precioTotal
+      };
+      products.push(product);
     }
-    return results;
+
+    return products;
   }
 
   async parsePdfMercadona(pdfBuffer: ArrayBuffer): Promise<any[]> {
