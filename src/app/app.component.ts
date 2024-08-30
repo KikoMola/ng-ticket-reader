@@ -16,14 +16,25 @@ export class AppComponent {
 
   constructor(private pdfParserService: PdfParserService) {}
 
-  onFileSelected(event: any) {
+  onFileSelectedConsum(event: any) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = async (e: any) => {
         const arrayBuffer = e.target.result;
-        this.parsedData = await this.pdfParserService.parsePdf(arrayBuffer);
-        console.log(this.parsedData);
+        this.parsedData = await this.pdfParserService.parsePdfConsum(arrayBuffer);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
+  onFileSelectedMercadona(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        const arrayBuffer = e.target.result;
+        this.parsedData = await this.pdfParserService.parsePdfMercadona(arrayBuffer);
       };
       reader.readAsArrayBuffer(file);
     }
