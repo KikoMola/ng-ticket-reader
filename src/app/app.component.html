@@ -49,3 +49,118 @@
         </div>
     </div>
 </nav>
+
+<div class="relative inline-block mt-20 ml-20">
+    <div class="absolute top-0 left-0 bg-[#001E2B] w-full h-full"></div>
+
+    <button class="
+      relative
+      bg-blue-700
+      text-white
+      font-bold 
+      py-3 
+      px-6 
+      border-2 
+      border-[#001E2B] 
+      hover:-translate-y-1
+      hover:-translate-x-1
+      transition-all 
+      duration-200 
+      ease-in-out 
+      uppercase 
+      text-lg
+    ">
+        Click Me
+    </button>
+</div>
+
+<div class="p-10 w-full">
+    <div class="relative w-full">
+        <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
+        <input type="password" class="
+        relative
+        w-full
+        bg-white
+        text-[#001E2B]
+        font-bold 
+        py-3 
+        px-6 
+        border-2 
+        border-[#001E2B] 
+        uppercase 
+        text-lg
+        focus:outline-none
+      " placeholder="Escribe aquí">
+    </div>
+</div>
+
+<div class="p-10 w-full">
+    <div class="relative">
+        <div class="absolute top-2 left-2 bg-[#001E2B] w-full h-full"></div>
+        <table class="relative w-full text-sm text-left bg-white border-2 border-[#001E2B]">
+            <thead class="text-xs uppercase bg-[#001E2B] text-white">
+                <tr>
+                    <th scope="col" class="px-6 py-3 border-r-2 border-b-2 border-[#001E2B]">Product name</th>
+                    <th scope="col" class="px-6 py-3 border-r-2 border-b-2 border-[#001E2B]">Color</th>
+                    <th scope="col" class="px-6 py-3 border-r-2 border-b-2 border-[#001E2B]">Category</th>
+                    <th scope="col" class="px-6 py-3 border-r-2 border-b-2 border-[#001E2B]">Price</th>
+                    <th scope="col" class="px-6 py-3 border-b-2 border-[#001E2B]">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b-2 border-[#001E2B]">
+                    <th scope="row" class="px-6 py-4 font-medium border-r-2 border-[#001E2B]">Apple MacBook Pro 17"</th>
+                    <td class="px-6 py-4 border-r-2 border-[#001E2B]">Silver</td>
+                    <td class="px-6 py-4 border-r-2 border-[#001E2B]">Laptop</td>
+                    <td class="px-6 py-4 border-r-2 border-[#001E2B]">$2999</td>
+                    <td class="px-6 py-4">
+                        <a href="#" class="font-medium text-[#001E2B] hover:underline">Edit</a>
+                    </td>
+                </tr>
+                <tr class="border-b-2 border-[#001E2B]">
+                    <th scope="row" class="px-6 py-4 font-medium border-r-2 border-[#001E2B]">Microsoft Surface Pro</th>
+                    <td class="px-6 py-4 border-r-2 border-[#001E2B]">White</td>
+                    <td class="px-6 py-4 border-r-2 border-[#001E2B]">Laptop PC</td>
+                    <td class="px-6 py-4 border-r-2 border-[#001E2B]">$1999</td>
+                    <td class="px-6 py-4">
+                        <a href="#" class="font-medium text-[#001E2B] hover:underline">Edit</a>
+                    </td>
+                </tr>
+                <!-- Añade más filas según sea necesario -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="p-10">
+    <div class="relative">
+        <div class="absolute top-2 left-2 bg-[#001E2B] w-full h-full"></div>
+        <div #dropArea class="relative border-2 border-[#001E2B] bg-white p-8 text-center transition-all duration-300"
+            (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+            <input #fileInput type="file" class="hidden" accept=".pdf" multiple (change)="onFileSelected($event)">
+            <label for="fileInput" class="cursor-pointer">
+                <div class="border-2 border-dashed border-[#001E2B] p-6">
+                    <svg class="mx-auto h-12 w-12 text-[#001E2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                        </path>
+                    </svg>
+                    <p class="mt-2 text-sm text-[#001E2B]">
+                        <span class="font-semibold">Haz clic para subir</span> o arrastra y suelta
+                    </p>
+                    <p class="mt-1 text-xs text-[#001E2B]">
+                        Solo archivos PDF
+                    </p>
+                </div>
+            </label>
+            <ul class="mt-4 text-left">
+                <li *ngFor="let file of files" class="text-[#001E2B] mt-2">
+                    {{ file.name }} - {{ file.size }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<pre>{{ parsedData | json }}</pre>
