@@ -26,19 +26,24 @@ export class PdfParserService {
         }
       }
 
-      const start = pageText.indexOf('----------------------------------------') + '----------------------------------------'.length + 1;
+      const start =
+        pageText.indexOf('----------------------------------------') +
+        '----------------------------------------'.length +
+        1;
       const end = pageText.indexOf('Socio-Cliente', start);
       if (start !== -1 && end !== -1) {
         capturedText += pageText.substring(start, end).trim() + ' ';
       } else {
-        console.log(`No se encontraron los delimitadores en la página ${pageNum}`);
+        console.log(
+          `No se encontraron los delimitadores en la página ${pageNum}`
+        );
       }
     }
 
     if (capturedText.trim()) {
       return this.processTextConsum(capturedText.trim());
     } else {
-      console.log("No se encontró texto relevante entre los delimitadores.");
+      console.log('No se encontró texto relevante entre los delimitadores.');
       return [];
     }
   }
@@ -49,43 +54,53 @@ export class PdfParserService {
     let i = 0;
 
     while (i < lines.length) {
-      const cantidad = parseFloat(lines[i].trim());
+      let cantidadStr = lines[i].trim().replace(',', '.');
+      let cantidad = parseFloat(cantidadStr);
+
+      if (isNaN(cantidad)) {
+        i++;
+        continue;
+      }
+
+      cantidad = Math.round(cantidad * 1000) / 1000;
+
       let nombre = '';
       let precioUnitario = 0;
       let precioTotal = 0;
-      let sc = '0';
 
       i++;
-      while (i < lines.length && !/^\d+,\d{2}$/.test(lines[i])) {
+      while (i < lines.length && !/^\d+[,\.]\d{2}$/.test(lines[i])) {
         nombre += lines[i] + ' ';
         i++;
       }
       nombre = nombre.trim();
 
-      if (i < lines.length && /^\d+,\d{2}$/.test(lines[i])) {
+      if (i < lines.length && /^\d+[,\.]\d{2}$/.test(lines[i])) {
         precioTotal = parseFloat(lines[i].replace(',', '.'));
         i++;
       }
 
-      if (cantidad === 1) {
+      if (cantidad > 1) {
+        precioUnitario = Math.round((precioTotal / cantidad) * 100) / 100;
+      } else if (cantidad < 1) {
+        precioUnitario = Math.round((precioTotal / cantidad) * 100) / 100;
+      } else if (Math.abs(cantidad - 1) < 0.001) {
         precioUnitario = precioTotal;
-      } else if (i < lines.length && /^\d+,\d{2}$/.test(lines[i])) {
-        precioUnitario = parseFloat(lines[i].replace(',', '.'));
+      }
+
+      if (i < lines.length && /^\d+[,\.]\d{2}$/.test(lines[i])) {
         i++;
       }
 
-      if (i < lines.length && /^\d+,\d{2}$/.test(lines[i])) {
-        sc = lines[i];
-        i++;
+      if (nombre) {
+        const product = {
+          cantidad,
+          nombre,
+          precioUnitario: Math.round(precioUnitario * 100) / 100,
+          precioTotal: Math.round(precioTotal * 100) / 100,
+        };
+        products.push(product);
       }
-
-      const product = {
-        cantidad,
-        nombre,
-        precioUnitario,
-        precioTotal
-      };
-      products.push(product);
     }
 
     return products;
