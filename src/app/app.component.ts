@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PdfParserService } from './ticket.service';
+import { PdfParserService } from './core/services/ticket.service';
 import { JsonPipe } from '@angular/common';
 
 @Component({

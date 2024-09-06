@@ -18,10 +18,11 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@supabase/supabase-js": "^2.45.3",
+    "pdfjs-dist": "4.5.136",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.10",
-    "pdfjs-dist": "4.5.136"
+    "zone.js": "~0.14.10"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.0",
