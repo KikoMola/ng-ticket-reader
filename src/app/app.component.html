@@ -55,6 +55,30 @@
 
     <button class="
       relative
+      bg-white
+      text-blue-700
+      font-bold 
+      py-3 
+      px-6 
+      border-2 
+      border-blue-700
+      hover:-translate-y-1
+      hover:-translate-x-1
+      transition-all 
+      duration-200 
+      ease-in-out 
+      uppercase 
+      text-lg
+    ">
+        Click Me
+    </button>
+</div>
+
+<div class="relative inline-block mt-20 ml-20">
+    <div class="absolute top-0 left-0 bg-[#001E2B] w-full h-full"></div>
+
+    <button class="
+      relative
       bg-blue-700
       text-white
       font-bold 
@@ -97,7 +121,7 @@
 <div class="p-4 sm:p-10">
     <div class="relative">
       <div class="absolute top-2 left-2 bg-[#001E2B] w-full h-full"></div>
-      <div class="relative overflow-hidden shadow-md sm:rounded-lg">
+      <div class="relative overflow-hidden shadow-md">
         <div class="overflow-x-auto">
           <table class="w-full text-sm text-left bg-white border-2 border-[#001E2B]">
             <thead class="text-xs uppercase bg-[#001E2B] text-white">
@@ -143,7 +167,7 @@
         <div class="absolute top-2 left-2 bg-[#001E2B] w-full h-full"></div>
         <div #dropArea class="relative border-2 border-[#001E2B] bg-white p-8 text-center transition-all duration-300"
             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-            <input #fileInput type="file" class="hidden" accept=".pdf" multiple (change)="onFileSelected($event)">
+            <input id="fileInput" #fileInput type="file" class="hidden" accept=".pdf" multiple (change)="onFileSelected($event)">
             <label for="fileInput" class="cursor-pointer">
                 <div class="border-2 border-dashed border-[#001E2B] p-6">
                     <svg class="mx-auto h-12 w-12 text-[#001E2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -160,11 +184,6 @@
                     </p>
                 </div>
             </label>
-            <ul class="mt-4 text-left">
-                <li *ngFor="let file of files" class="text-[#001E2B] mt-2">
-                    {{ file.name }} - {{ file.size }}
-                </li>
-            </ul>
         </div>
     </div>
 </div>
