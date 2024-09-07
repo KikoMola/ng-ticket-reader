@@ -3,7 +3,11 @@
         "angular-*": {
             "style": "scss",
             "skipStyle": false,
-            "externalTemplate": true
+            "externalTemplate": true,
+            "inlineStyle": true
+        },
+        "angular-component": {
+            "ngOnInit": true
         }
     }
 }
