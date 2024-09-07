@@ -1,4 +1,4 @@
-<nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+<!-- <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo">
@@ -42,9 +42,9 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> -->
 
-<div class="relative inline-block mt-20 ml-20">
+<!-- <div class="relative inline-block mt-20 ml-20">
     <div class="absolute top-0 left-0 bg-[#001E2B] w-full h-full"></div>
 
     <button class="
@@ -63,7 +63,7 @@
       ease-in-out 
       uppercase 
       text-lg
-    ">
+    " (click)="showForm()">
         Click Me
     </button>
 </div>
@@ -110,9 +110,9 @@
         focus:outline-none
       " placeholder="Escribe aquí">
     </div>
-</div>
+</div> -->
 
-<div class="p-4 sm:p-10">
+<!-- <div class="p-4 sm:p-10">
     <div class="relative">
       <div class="absolute top-2 left-2 bg-[#001E2B] w-full h-full"></div>
       <div class="relative overflow-hidden shadow-md">
@@ -146,22 +146,26 @@
                   <a href="#" class="font-medium text-[#001E2B] hover:underline">Edit</a>
                 </td>
               </tr>
-              <!-- Añade más filas según sea necesario -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  </div>
-  
-  
+  </div> -->
+@if (isLoading) {
+<app-brutal-spinner [message]="'Escaneando tu ticket'"></app-brutal-spinner>
+}
 
+
+
+@if (notScanned) {
 <div class="p-10">
     <div class="relative">
         <div class="absolute top-2 left-2 bg-[#001E2B] w-full h-full"></div>
         <div #dropArea class="relative border-2 border-[#001E2B] bg-white p-8 text-center transition-all duration-300"
             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-            <input id="fileInput" #fileInput type="file" class="hidden" accept=".pdf" multiple (change)="onFileSelected($event)">
+            <input id="fileInput" #fileInput type="file" class="hidden" accept=".pdf" multiple
+                (change)="onFileSelected($event)">
             <label for="fileInput" class="cursor-pointer">
                 <div class="border-2 border-dashed border-[#001E2B] p-6">
                     <svg class="mx-auto h-12 w-12 text-[#001E2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -182,30 +186,74 @@
     </div>
 </div>
 
-<div class="p-10 w-full">
-  <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
-    <!-- Opción Consum -->
-    <div class="relative w-full">
-      <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
-      <label class="relative flex items-center justify-center bg-white border-2 border-[#001E2B] p-4 cursor-pointer w-full h-full">
-        <input type="radio" name="store" value="consum" class="hidden peer">
-        <div class="absolute left-4 w-6 h-6 border-2 border-[#001E2B] rounded-full peer-checked:bg-[#001E2B]"></div>
-        <span class="text-[#001E2B] font-bold uppercase text-center">Consum</span>
-      </label>
-    </div>
+<div class="px-6 sm:px-10 py-4 sm:py-10 w-full" [formGroup]="form">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+        <!-- Opción Consum -->
+        <div class="relative w-full">
+            <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
+            <label
+                class="relative flex items-center justify-center bg-white border-2 border-[#001E2B] p-4 cursor-pointer w-full h-full">
+                <input type="radio" value="consum" formControlName="storeSelection" class="hidden peer">
+                <div class="absolute left-4 w-6 h-6 border-2 border-[#001E2B] rounded-full peer-checked:bg-[#001E2B]">
+                </div>
+                <span class="text-[#001E2B] font-bold uppercase text-center">Consum</span>
+            </label>
+        </div>
 
-    <!-- Opción Mercadona -->
-    <div class="relative w-full">
-      <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
-      <label class="relative flex items-center justify-center bg-white border-2 border-[#001E2B] p-4 cursor-pointer w-full h-full">
-        <input type="radio" name="store" value="mercadona" class="hidden peer">
-        <div class="absolute left-4 w-6 h-6 border-2 border-[#001E2B] rounded-full peer-checked:bg-[#001E2B]"></div>
-        <span class="text-[#001E2B] font-bold uppercase text-center">Mercadona</span>
-      </label>
+        <!-- Opción Mercadona -->
+        <div class="relative w-full">
+            <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
+            <label
+                class="relative flex items-center justify-center bg-white border-2 border-[#001E2B] p-4 cursor-pointer w-full h-full">
+                <input type="radio" value="mercadona" formControlName="storeSelection" class="hidden peer">
+                <div class="absolute left-4 w-6 h-6 border-2 border-[#001E2B] rounded-full peer-checked:bg-[#001E2B]">
+                </div>
+                <span class="text-[#001E2B] font-bold uppercase text-center">Mercadona</span>
+            </label>
+        </div>
     </div>
-  </div>
 </div>
 
+} @else {
+@if (parsedData.length > 0) {
+<div class="p-4 sm:p-10">
+    <div class="relative">
+        <div class="absolute top-2 left-2 bg-[#001E2B] w-full h-full"></div>
+        <div class="relative overflow-hidden shadow-md">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left bg-white border-2 border-[#001E2B]">
+                    <thead class="text-xs uppercase bg-[#001E2B] text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 border-r-2 border-b-2 border-[#001E2B] whitespace-nowrap">
+                                PRODUCTO</th>
+                            <th scope="col" class="px-6 py-3 border-r-2 border-b-2 border-[#001E2B] whitespace-nowrap">
+                                CANTIDAD</th>
+                            <th scope="col" class="px-6 py-3 border-r-2 border-b-2 border-[#001E2B] whitespace-nowrap">
+                                PVP</th>
+                            <th scope="col" class="px-6 py-3 border-b-2 border-[#001E2B] whitespace-nowrap">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of parsedData" class="border-b-2 border-[#001E2B]">
+                            <td class="px-6 py-4 border-r-2 border-[#001E2B] whitespace-nowrap">{{ item.nombre }}</td>
+                            <td class="px-6 py-4 border-r-2 border-[#001E2B] whitespace-nowrap">{{ item.cantidad }}</td>
+                            <td class="px-6 py-4 border-r-2 border-[#001E2B] whitespace-nowrap">{{ item.precioUnitario |
+                                currency:'EUR':'symbol':'1.2-2' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ item.precioTotal |
+                                currency:'EUR':'symbol':'1.2-2' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+}
+}
 
 
-<pre>{{ parsedData | json }}</pre>
+
+
+
+
+<!-- <pre>{{ parsedData | json }}</pre> -->
