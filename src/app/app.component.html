@@ -188,4 +188,30 @@
     </div>
 </div>
 
+<div class="p-10 w-full">
+  <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+    <!-- Opción Consum -->
+    <div class="relative w-full">
+      <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
+      <label class="relative flex items-center justify-center bg-white border-2 border-[#001E2B] p-4 cursor-pointer w-full h-full">
+        <input type="radio" name="store" value="consum" class="hidden peer">
+        <div class="absolute left-4 w-6 h-6 border-2 border-[#001E2B] rounded-full peer-checked:bg-[#001E2B]"></div>
+        <span class="text-[#001E2B] font-bold uppercase text-center">Consum</span>
+      </label>
+    </div>
+
+    <!-- Opción Mercadona -->
+    <div class="relative w-full">
+      <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
+      <label class="relative flex items-center justify-center bg-white border-2 border-[#001E2B] p-4 cursor-pointer w-full h-full">
+        <input type="radio" name="store" value="mercadona" class="hidden peer">
+        <div class="absolute left-4 w-6 h-6 border-2 border-[#001E2B] rounded-full peer-checked:bg-[#001E2B]"></div>
+        <span class="text-[#001E2B] font-bold uppercase text-center">Mercadona</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+
+
 <pre>{{ parsedData | json }}</pre>
