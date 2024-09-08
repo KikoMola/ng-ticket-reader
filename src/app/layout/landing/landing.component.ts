@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -18,17 +18,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { BrutalSpinnerComponent } from '../../core/components/brutal-spinner/brutal-spinner.component';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, BrutalSpinnerComponent],
+  imports: [FormsModule, ReactiveFormsModule, BrutalSpinnerComponent, CurrencyPipe],
   templateUrl: './landing.component.html',
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
+  styleUrl: './landing.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingComponent implements OnInit {

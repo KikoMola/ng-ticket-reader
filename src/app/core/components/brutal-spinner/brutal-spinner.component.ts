@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'app-brutal-spinner',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './brutal-spinner.component.html',
   styles: [
     `

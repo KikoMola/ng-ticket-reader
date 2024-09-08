@@ -1,0 +1,22 @@
+<div class="faq-container">
+  @for (faq of faqs; track faq; let i = $index) {
+    <div class="faq-item">
+      <div class="faq-question" (click)="toggleFaq(i)">
+        <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
+        <div
+          class="relative flex justify-between items-center bg-white border-2 border-[#001E2B] p-4 cursor-pointer">
+          <span class="text-[#001E2B] font-bold uppercase">{{ faq.question }}</span>
+          <span class="text-[#001E2B] font-bold">{{ activeFaq === i ? '-' : '+' }}</span>
+        </div>
+      </div>
+      @if (activeFaq === i) {
+        <div class="faq-answer">
+          <div class="absolute top-1 left-1 bg-[#001E2B] w-full h-full"></div>
+          <div class="relative bg-white border-2 border-[#001E2B] p-4">
+            <p class="text-[#001E2B]">{{ faq.answer }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

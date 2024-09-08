@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  imports: [],
   templateUrl: './register.component.html',
   styles: `
     :host {

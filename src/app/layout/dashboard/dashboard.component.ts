@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  imports: [],
   templateUrl: './dashboard.component.html',
   styles: `
     :host {
