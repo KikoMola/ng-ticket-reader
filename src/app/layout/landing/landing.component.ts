@@ -19,11 +19,12 @@ import {
 } from '@angular/forms';
 import { BrutalSpinnerComponent } from '../../core/components/brutal-spinner/brutal-spinner.component';
 import { CurrencyPipe } from '@angular/common';
+import { FaqsComponent } from "../faqs/faqs.component";
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, BrutalSpinnerComponent, CurrencyPipe],
+  imports: [FormsModule, ReactiveFormsModule, BrutalSpinnerComponent, CurrencyPipe, FaqsComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -137,36 +138,6 @@ export class LandingComponent implements OnInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
-
-  // onFileSelectedConsum(file: File) {
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = async (e: any) => {
-  //       const arrayBuffer = e.target.result;
-  //       this.parsedData = await this._pdfParserService.parsePdfConsum(
-  //         arrayBuffer
-  //       );
-  //       this.notScanned = false;
-  //       this._cdr.markForCheck(); // Marca el componente para ser verificado
-  //     };
-  //     reader.readAsArrayBuffer(file);
-  //   }
-  // }
-
-  // onFileSelectedMercadona(file: File) {
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = async (e: any) => {
-  //       const arrayBuffer = e.target.result;
-  //       this.parsedData = await this._pdfParserService.parsePdfMercadona(
-  //         arrayBuffer
-  //       );
-  //       this.notScanned = false;
-  //       this._cdr.markForCheck(); // Marca el componente para ser verificado
-  //     };
-  //     reader.readAsArrayBuffer(file);
-  //   }
-  // }
 
   private processFile(
     file: File,

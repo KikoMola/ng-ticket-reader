@@ -6,11 +6,7 @@ import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './register.component.html',
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
+  styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {
