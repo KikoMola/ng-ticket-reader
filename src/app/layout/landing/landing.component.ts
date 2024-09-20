@@ -17,6 +17,7 @@ import { initFlowbite } from 'flowbite';
 import { BrutalSpinnerComponent } from '../../core/components/brutal-spinner/brutal-spinner.component';
 import { PdfParserService } from '../../core/services/ticket.service';
 import FaqsComponent from "../faqs/faqs.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -26,7 +27,8 @@ import FaqsComponent from "../faqs/faqs.component";
     ReactiveFormsModule,
     BrutalSpinnerComponent,
     CurrencyPipe,
-    FaqsComponent
+    FaqsComponent,
+    RouterLink
 ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
