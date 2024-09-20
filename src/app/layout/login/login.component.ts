@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
 import {
   FormControl,
@@ -10,7 +11,7 @@ import {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +31,10 @@ export default class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.form.value);
+    if (this.form.valid) {
+      console.log(this.form.value);
+    } else {
+      this.form.markAllAsTouched();
+    }
   }
 }
