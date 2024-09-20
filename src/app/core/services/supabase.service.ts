@@ -37,4 +37,17 @@ export class SupabaseService {
     return this._supabase.auth.signOut();
   }
 
+  async registerUserOnTable(email: string, id: string) {
+    const { error: dbError } = await this._supabase.rpc('registrar_usuario', {
+      id: id,
+      email: email,
+      created_at: new Date(),
+      last_login: new Date()
+    });
+
+    if (dbError) {
+      console.error('Error inserting user into database:', dbError);
+    }
+  }
+
 }

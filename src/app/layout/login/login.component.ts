@@ -7,7 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { SupabaseService } from '../../core/services/supabase.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,8 @@ import { RouterLink } from '@angular/router';
 })
 export default class LoginComponent implements OnInit {
   form!: FormGroup;
+
+  constructor(private _supabase: SupabaseService, private _router: Router) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -32,10 +35,11 @@ export default class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.form.valid) {
-      console.log(this.form.value);
-    } else {
-      this.form.markAllAsTouched();
-    }
+    const { email, pwd } = this.form.value;
+    this._supabase.signInWithEmail(email, pwd).then((res) => {
+      res.error
+        ? alert(res.error.message)
+        : this._router.navigate(['/dashboard']);
+    });
   }
 }

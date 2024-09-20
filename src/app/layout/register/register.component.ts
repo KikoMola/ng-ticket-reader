@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  type OnInit
+} from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -9,6 +13,8 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SupabaseService } from '../../core/services/supabase.service';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +27,8 @@ import {
 export default class RegisterComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
+
+  constructor(private _supabase: SupabaseService, private _router: Router) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -50,11 +58,20 @@ export default class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.submitted = true;
-    if (this.form.valid) {
-      console.log(this.form.value);
-    } else {
-      this.form.markAllAsTouched();
+    const { email, pwd, pwd2 } = this.form.value;
+
+    if (pwd === pwd2) {
+      this._supabase.signUpWithEmail(email, pwd).then((res) => {
+        res.error
+          // ? this._toastService.error(res.error.message)
+          ? alert(res.error.message)
+          : this.registerUserOnTable(email, String(res.data.user?.id));
+      });
     }
+  }
+
+  registerUserOnTable(email: string, id: string) {
+    this._router.navigate(['/dashboard']);
+    this._supabase.registerUserOnTable(email, id);
   }
 }
