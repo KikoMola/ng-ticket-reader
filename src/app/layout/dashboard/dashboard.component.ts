@@ -13,7 +13,7 @@ import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export default class DashboardComponent implements OnInit {
 
   ngOnInit(): void { }
 

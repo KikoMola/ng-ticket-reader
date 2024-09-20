@@ -1,4 +1,4 @@
-
+import { CurrencyPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -7,24 +7,27 @@ import {
   ViewChild,
   type OnInit,
 } from '@angular/core';
-import { initFlowbite } from 'flowbite';
-import { PdfParserService } from '../../core/services/ticket.service';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule,
-  Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
+import { initFlowbite } from 'flowbite';
 import { BrutalSpinnerComponent } from '../../core/components/brutal-spinner/brutal-spinner.component';
-import { CurrencyPipe } from '@angular/common';
-import { FaqsComponent } from "../faqs/faqs.component";
+import { PdfParserService } from '../../core/services/ticket.service';
+import FaqsComponent from "../faqs/faqs.component";
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, BrutalSpinnerComponent, CurrencyPipe, FaqsComponent],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    BrutalSpinnerComponent,
+    CurrencyPipe,
+    FaqsComponent
+],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

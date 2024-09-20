@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent implements OnInit {
+export default class RegisterComponent implements OnInit {
 
   ngOnInit(): void { }
 

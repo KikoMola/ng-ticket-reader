@@ -15,7 +15,7 @@ import {
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
+export default class LoginComponent implements OnInit {
   form!: FormGroup;
 
   ngOnInit(): void {

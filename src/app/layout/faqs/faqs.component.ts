@@ -38,7 +38,7 @@ import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FaqsComponent implements OnInit {
+export default class FaqsComponent implements OnInit {
   ngOnInit(): void {}
 
   faqs = [

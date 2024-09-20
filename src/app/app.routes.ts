@@ -1,9 +1,5 @@
 import { Routes } from '@angular/router';
 import { LandingComponent } from './layout/landing/landing.component';
-import { RegisterComponent } from './layout/register/register.component';
-import { LoginComponent } from './layout/login/login.component';
-import { DashboardComponent } from './layout/dashboard/dashboard.component';
-import { FaqsComponent } from './layout/faqs/faqs.component';
 
 export const routes: Routes = [
   {
@@ -12,19 +8,19 @@ export const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    loadComponent: () => import('./layout/register/register.component')
   },
   {
     path: 'login',
-    component: LoginComponent,
+    loadComponent: () => import('./layout/login/login.component')
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadComponent: () => import('./layout/dashboard/dashboard.component')
   },
   {
     path: 'faqs',
-    component: FaqsComponent
+    loadComponent: () => import('./layout/faqs/faqs.component')
   },
   {
     path: '**',
