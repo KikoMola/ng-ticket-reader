@@ -57,21 +57,24 @@ export default class RegisterComponent implements OnInit {
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
-  register() {
-    const { email, pwd, pwd2 } = this.form.value;
-
-    if (pwd === pwd2) {
-      this._supabase.signUpWithEmail(email, pwd).then((res) => {
-        res.error
-          // ? this._toastService.error(res.error.message)
-          ? alert(res.error.message)
-          : this.registerUserOnTable(email, String(res.data.user?.id));
-      });
+  async register() {
+    if (this.form.invalid) {
+      return;
     }
-  }
 
-  registerUserOnTable(email: string, id: string) {
-    this._router.navigate(['/dashboard']);
-    this._supabase.registerUserOnTable(email, id);
+    const { email, pwd } = this.form.value;
+
+    try {
+      const { data, error } = await this._supabase.signUpWithEmail(email, pwd);
+      
+      if (error) {
+        alert(`Error de registro`);
+      } else if (data && data.user) {
+        alert(`Registro exitoso. ID de usuario: ${data.user.id}`);
+        this._router.navigate(['/login']); // Redirigir al login o a donde sea apropiado
+      }
+    } catch (error) {
+      alert(`Error inesperado: ${error instanceof Error ? error.message : String(error)}`);
+    }
   }
 }

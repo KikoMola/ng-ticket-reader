@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AuthChangeEvent, createClient, Session, SupabaseClient } from '@supabase/supabase-js';
+import {
+  AuthChangeEvent,
+  createClient,
+  Session,
+  SupabaseClient,
+} from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupabaseService {
   private _supabase!: SupabaseClient;
@@ -25,8 +30,24 @@ export class SupabaseService {
     return this._supabase.auth.signInWithPassword({ email, password });
   }
 
-  signUpWithEmail(email: string, password: string) {
-    return this._supabase.auth.signUp({ email, password });
+  async signUpWithEmail(email: string, password: string) {
+    try {
+      const { data, error } = await this._supabase.auth.signUp({ email, password });
+      
+      if (error) throw error;
+
+      if (data.user) {
+        const { error: insertError } = await this._supabase
+          .from('users')
+          .insert({ id: data.user.id, email: data.user.email });
+
+        if (insertError) throw insertError;
+      }
+
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
   }
 
   getCurrentSession() {
@@ -36,18 +57,4 @@ export class SupabaseService {
   signOut() {
     return this._supabase.auth.signOut();
   }
-
-  async registerUserOnTable(email: string, id: string) {
-    const { error: dbError } = await this._supabase.rpc('registrar_usuario', {
-      id: id,
-      email: email,
-      created_at: new Date(),
-      last_login: new Date()
-    });
-
-    if (dbError) {
-      console.error('Error inserting user into database:', dbError);
-    }
-  }
-
 }
